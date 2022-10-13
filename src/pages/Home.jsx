@@ -37,7 +37,7 @@ axios.get('/posts');
               viewsCount={150}
               commentsCount={3}
               tags={['react', 'fun', 'typescript']}
-              isLoading={true}//если статьи подгружаются
+              isLoading={true}//если статьи подгружаются идёт загрузка
               isEditable
             />
           ))}

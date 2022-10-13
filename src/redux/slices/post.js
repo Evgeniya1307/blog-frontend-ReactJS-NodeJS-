@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"; //создам редюсер
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"; //создам редюсер.createAsyncThunk-асинхронную добавила
 
 const initialState = {
   //список статей
