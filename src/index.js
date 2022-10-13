@@ -13,15 +13,15 @@ import store from "./redux/store"; //вытаскиваю стор
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <React.StrictMode>
+  <>
     <CssBaseline />
     <ThemeProvider theme={theme}>
       {/*обернула роутинг*/}
       <BrowserRouter>
-        <Provider store={store}> {/*должен знать о стор */}
+        <Provider store={store}>{/*должен знать о стор */}
           <App />
         </Provider>
       </BrowserRouter>
     </ThemeProvider>
-  </React.StrictMode>
+  </>
 );
