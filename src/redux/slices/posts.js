@@ -24,8 +24,20 @@ const postsSlice = createSlice({
   initialState,
   reducer: {}, //пишу редюсер и тут методы обновляющие мой state
 extraReducers: {//описала состояние асинхронного экшена
-
-}
+[fetchPosts.pending]:(state)=>{
+  state.posts.items=[]
+  state.posts.status ='loading';//идёт загрузка
+},
+[fetchPosts.fulfilled]:(state,action)=>{
+  state.posts.items = action.payload;
+  state.posts.status ='loaded';//завершилась
+},
+//если ошибка
+[fetchPosts.rejected]:(state)=>{
+  state.posts.items=[];//сбрасываю статьи которые были изначально
+  state.posts.status ='error';//
+},
+},
 });
 
 export const postsReducer = postsSlice.reducer;
