@@ -10,12 +10,11 @@ function App() {
       <Header />
       <Container maxWidth="lg">
        <Routes>
-  <Route path=""> {/*рендерю home, когда чел переёдёт на главный путь*/}</Route>
-      <Home />
-        {/*<FullPost />*/}
-        {/*<AddPost />*/}
-        {/*<Login />*/}
-        {/*<Registration />*/}
+  <Route path="/" element={<Home/>}/> {/*рендерю home, когда чел переёдёт на главный путь*/}
+     <Route path="/posts/:id" element ={<FullPost />}/> {/*если динамический id тоFullPost*/}
+       <Route path="/add-post" element={<AddPost />}/>
+      <Route path="/login" element={<Login />}/>
+     <Route path="register" element={<Registration />}/>
         </Routes>
       </Container>
     </>
