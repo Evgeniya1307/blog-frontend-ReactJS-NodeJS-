@@ -2,5 +2,8 @@ import {configureStore} from '@reduxjs/toolkit';
 
 //создаю редакторское хранилище
 const store = configureStore({
-
+reducer:{}
 })
+
+
+export default store;
