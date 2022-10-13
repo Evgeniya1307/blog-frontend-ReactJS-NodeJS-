@@ -3,16 +3,18 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Grid from '@mui/material/Grid';
 import axios from '../axios';
-
+import {useDispatch} from 'react-redux';//чтобы отправить асинхронный экшен
 
 import { Post } from '../components/Post';
 import { TagsBlock } from '../components/TagsBlock';
 import { CommentsBlock } from '../components/CommentsBlock';
+import {fetchPosts} from '../redux/slices/posts'
 
 export const Home = () => {
-//делаю запрос на бэкенд получить статьи
+  const dispatch= useDispatch();
+//делаю запрос на бэкенд 
 React.useEffect(()=>{
-axios.get('/posts');
+dispatch(fetchPosts());
 }, []);
 
   return (

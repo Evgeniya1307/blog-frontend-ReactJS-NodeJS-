@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import { postsReducer } from './slices/post';
+import { postsReducer } from './slices/posts';
 
 //создаю редакторское хранилище
 const store = configureStore({
