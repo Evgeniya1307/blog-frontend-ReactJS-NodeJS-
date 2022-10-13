@@ -16,5 +16,7 @@ const postsSlice = createSlice({
   //получает
   name: "posts",
   initialState,
-  reducer: {} //пишу редюсер и тут методы обновляющие мой state
+  reducer: {}, //пишу редюсер и тут методы обновляющие мой state
 });
+
+export const postsReducer = postsSlice.reducer;
