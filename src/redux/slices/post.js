@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"; //создам редюсер.createAsyncThunk-асинхронную добавила
 
+//создала асинхронный запрос
+
 const initialState = {
   //список статей
   posts: {
