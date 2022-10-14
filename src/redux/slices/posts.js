@@ -28,9 +28,10 @@ extraReducers: {//описала состояние асинхронного э�
   state.posts.items=[]
   state.posts.status ='loading';//идёт загрузка
 },
+//завершилась
 [fetchPosts.fulfilled]:(state,action)=>{
   state.posts.items = action.payload;
-  state.posts.status ='loaded';//завершилась
+  state.posts.status ='loaded';
 },
 //если ошибка
 [fetchPosts.rejected]:(state)=>{
