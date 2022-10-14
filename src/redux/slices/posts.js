@@ -6,6 +6,10 @@ const{data} = await axios.get('/posts');//нужно вытащить data из 
 return data;//что придёт от бэка возвращаю 
 });
 
+
+//создала новый запрос на получение тэгов
+
+
 const initialState = {
   //список статей
   posts: {
