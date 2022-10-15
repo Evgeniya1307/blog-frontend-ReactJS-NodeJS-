@@ -1,10 +1,23 @@
 import React from "react";
+import {useParams} from 'react-router-dom'
 
 import { Post } from "../components/Post";
 import { Index } from "../components/AddComment";
 import { CommentsBlock } from "../components/CommentsBlock";
+import axios from "axios";
 
 export const FullPost = () => {
+  const [data, setDate]= React.useState()//будут дата 
+  //вытаскиваю id полученный 
+  const { id } = useParams();
+ 
+React.useEffect(()=>{
+  axios.get(`/posts/${id}`)
+  .then(res=>{//выполнился когда запрос сох-ла в state
+    setDate(res.data)
+  });
+},[])
+
   return (
     <>
       <Post

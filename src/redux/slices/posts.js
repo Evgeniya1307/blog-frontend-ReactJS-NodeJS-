@@ -54,19 +54,19 @@ extraReducers: {//описала состояние асинхронного э�
 
 
 //для тэгов описала состояние асинхронного экшена
-[fetchPosts.pending]:(state)=>{
-  state.posts.items=[]
-  state.posts.status ='loading';//идёт загрузка
+[fetchTags.pending]:(state)=>{
+  state.tags.items=[]
+  state.tags.status ='loading';//идёт загрузка
 },
 //завершилась
-[fetchPosts.fulfilled]:(state,action)=>{
-  state.posts.items = action.payload;
-  state.posts.status ='loaded';
+[fetchTags.fulfilled]:(state,action)=>{
+  state.tags.items = action.payload;
+  state.tags.status ='loaded';
 },
 //если ошибка
-[fetchPosts.rejected]:(state)=>{
-  state.posts.items=[];//сбрасываю статьи которые были изначально
-  state.posts.status ='error';//
+[fetchTags.rejected]:(state)=>{
+  state.tags.items=[];//сбрасываю статьи которые были изначально
+  state.tags.status ='error';//
 },
 },
 });
