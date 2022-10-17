@@ -1,10 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
 import { postsReducer } from './slices/posts';
-
+import { authReducer } from './slices/auth';
 //создаю редакторское хранилище
 const store = configureStore({
 reducer:{
-    posts: postsReducer
+    posts: postsReducer,
+    auth: authReducer
 },
 })
 
