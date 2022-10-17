@@ -10,4 +10,8 @@ const initialState = {
    status: 'loading',//инфа загружается
   };
   
-  
+  const authSlice = createSlice({ 
+name: 'auth',
+initialState,
+//инфу о пользователе получаю из редакса(из асинхронного экшена)
+  })
