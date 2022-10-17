@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams} from "react-router-dom";//возвращает объект пар ключ/значение параметров из текущего URL-адреса, которые были сопоставлены <Route path>
 
 import { Post } from "../components/Post";
 import { Index } from "../components/AddComment";
