@@ -1,16 +1,23 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"; //создам редюсер.createAsyncThunk-асинхронную добавила
 import axios from "../../axios";
 
+//запросы
 export const fethAuth = createAsyncThunk(
-  "auth/fethUserData",
+  "auth/fethAuth",
   async (params) => {
     const { data } = await axios.post("/auth/login", params); //ин-фа о входе при запросе получит fethUserData и отдам на бэк и он вернёт ответ и сохраню в редакс
     return data;
   }
 );
 
-//делаю авторизацию
+export const fethAuthMe = createAsyncThunk("auth/fethAuthMe",
+    async () => {
+      const { data } = await axios.get("/auth/me"); 
+      return data;
+    }
+  );
 
+//делаю авторизацию
 const initialState = {
   //ин-фа о пользователе хр-ся в data
   data: null,
@@ -42,6 +49,19 @@ const authSlice = createSlice({
       state.status = "error";
       state.data = null;
     },
+
+    [fethAuthMe.pending]: (state) => {
+        state.status = "loading";
+        state.data = null;
+      },
+      [fethAuthMe.fulfilled]: (state, action) => {
+        state.status = "loaded";
+        state.data = action.payload;
+      },
+      [fethAuthMe.rejected]: (state) => {
+        state.status = "error";
+        state.data = null;
+      },
   },
 });
 
