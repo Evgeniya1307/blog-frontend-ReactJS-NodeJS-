@@ -9,20 +9,24 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { selectIsAuth } from "../../redux/slices/auth";
 
-export const AddPost = () => {
-  const isAuth = useSelector(selectIsAuth);
-  const imageUrl = "";
-  const [value, setValue] = React.useState("");
 
-  const handleChangeFile = () => {};
+export const AddPost = () => {
+  const imageUrl = "";
+  const isAuth = useSelector(selectIsAuth);
+  const [value, setValue] = React.useState("");//value-сох-ет то что я ввела в редакторе
+const [title, setTitle]=React.useState('')//на title
+const[tags, setTegs]=React.useState('')
+  const inputFileRef = React.useRef(null);//для загрузки изображения
+
+const handleChangeFile = () => {};//проверяет изменилось в инпуте или нет
 
   const onClickRemoveImage = () => {};
 
-  const onChange = React.useCallback((value) => {
+  const onChange = React.useCallback((value) => {//будет получать value я его сохранять я делаю компилированный редактор 
     setValue(value);
   }, []);
 
-  const options = React.useMemo(
+  const options = React.useMemo( //получает настройки
     () => ({
       spellChecker: false,
       maxHeight: "400px",
@@ -38,16 +42,18 @@ export const AddPost = () => {
   );
 
   //если не авторизованны статью соз-ть нельзя и переход на главную
-  if (!isAuth) {
+  if (!window.localStorage.getItem("token") && !isAuth) {
     return <Navigate to="/" />;
   }
 
+
   return (
+     // при клике на эту кнопку переводи его на этот DOM-элемент
     <Paper style={{ padding: 30 }}>
-      <Button variant="outlined" size="large">
+      <Button onClick={()=>inputFileRef.current.click()} variant="outlined" size="large">{/*когда кликаешь то по факту на inputFileRef */}
         Загрузить превью
       </Button>
-      <input type="file" onChange={handleChangeFile} hidden />
+      <input ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
       {imageUrl && (
         <Button variant="contained" color="error" onClick={onClickRemoveImage}>
           Удалить
@@ -66,14 +72,19 @@ export const AddPost = () => {
         classes={{ root: styles.title }}
         variant="standard"
         placeholder="Заголовок статьи..."
+        value={title}
+        onChange={(e)=>setTitle(e.target.value)}
         fullWidth
       />
       <TextField
+      value={tags}
+      onChange={(e)=>setTegs(e.target.value)}
         classes={{ root: styles.tags }}
         variant="standard"
         placeholder="Тэги"
         fullWidth
       />
+      
       <SimpleMDE
         className={styles.editor}
         value={value}
