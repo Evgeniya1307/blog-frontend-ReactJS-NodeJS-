@@ -18,7 +18,13 @@ const [title, setTitle]=React.useState('')//на title
 const[tags, setTegs]=React.useState('')
   const inputFileRef = React.useRef(null);//для загрузки изображения
 
-const handleChangeFile = () => {};//проверяет изменилось в инпуте или нет
+const handleChangeFile = async(event) => {//проверяет изменилось в инпуте или нет
+try{//если загрузка нормально
+const formData=new FormData()//формат позволяющий загружать вшивать и отправлять на бэк
+} catch(err){
+
+}
+};
 
   const onClickRemoveImage = () => {};
 
@@ -53,7 +59,11 @@ const handleChangeFile = () => {};//проверяет изменилось в �
       <Button onClick={()=>inputFileRef.current.click()} variant="outlined" size="large">{/*когда кликаешь то по факту на inputFileRef */}
         Загрузить превью
       </Button>
-      <input ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
+      <input 
+      ref={inputFileRef} 
+      type="file"
+       onChange={handleChangeFile} 
+       hidden />
       {imageUrl && (
         <Button variant="contained" color="error" onClick={onClickRemoveImage}>
           Удалить
