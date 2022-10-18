@@ -1,15 +1,18 @@
-import React from 'react';
-import TextField from '@mui/material/TextField';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
-import SimpleMDE from 'react-simplemde-editor';
-
-import 'easymde/dist/easymde.min.css';
-import styles from './AddPost.module.scss';
+import React from "react";
+import TextField from "@mui/material/TextField";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import SimpleMDE from "react-simplemde-editor";//делаю редактор для статьи
+import "easymde/dist/easymde.min.css";
+import styles from "./AddPost.module.scss";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { selectIsAuth } from "../../redux/slices/auth";
 
 export const AddPost = () => {
-  const imageUrl = '';
-  const [value, setValue] = React.useState('');
+  const isAuth = useSelector(selectIsAuth);
+  const imageUrl = "";
+  const [value, setValue] = React.useState("");
 
   const handleChangeFile = () => {};
 
@@ -22,17 +25,22 @@ export const AddPost = () => {
   const options = React.useMemo(
     () => ({
       spellChecker: false,
-      maxHeight: '400px',
+      maxHeight: "400px",
       autofocus: true,
-      placeholder: 'Введите текст...',
+      placeholder: "Введите текст...",
       status: false,
       autosave: {
         enabled: true,
         delay: 1000,
       },
     }),
-    [],
+    []
   );
+
+  //если не авторизованны статью соз-ть нельзя и переход на главную
+  if (!isAuth) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <Paper style={{ padding: 30 }}>
@@ -46,7 +54,11 @@ export const AddPost = () => {
         </Button>
       )}
       {imageUrl && (
-        <img className={styles.image} src={`http://localhost:4444${imageUrl}`} alt="Uploaded" />
+        <img
+          className={styles.image}
+          src={`http://localhost:4444${imageUrl}`}
+          alt="Uploaded"
+        />
       )}
       <br />
       <br />
@@ -56,8 +68,18 @@ export const AddPost = () => {
         placeholder="Заголовок статьи..."
         fullWidth
       />
-      <TextField classes={{ root: styles.tags }} variant="standard" placeholder="Тэги" fullWidth />
-      <SimpleMDE className={styles.editor} value={value} onChange={onChange} options={options} />
+      <TextField
+        classes={{ root: styles.tags }}
+        variant="standard"
+        placeholder="Тэги"
+        fullWidth
+      />
+      <SimpleMDE
+        className={styles.editor}
+        value={value}
+        onChange={onChange}
+        options={options}
+      />
       <div className={styles.buttons}>
         <Button size="large" variant="contained">
           Опубликовать

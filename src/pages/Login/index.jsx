@@ -67,7 +67,7 @@ export const Login = () => {
           {...register("password", { required: "Укажите пароль" })}
           fullWidth
         />
-        <Button type="sumbit" size="large" variant="contained" fullWidth>
+        <Button disabled={!isValid}  type="sumbit" size="large" variant="contained" fullWidth>
           Войти
         </Button>
       </form>

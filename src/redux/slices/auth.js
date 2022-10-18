@@ -17,6 +17,11 @@ export const fethAuthMe = createAsyncThunk("auth/fethAuthMe",
     }
   );
 
+  export const fethRegister = createAsyncThunk("auth/fethRegister", async (params) => {
+    const { data } = await axios.post("/auth/register",params);
+    return data;
+  });
+
 //делаю авторизацию
 const initialState = {
   //ин-фа о пользователе хр-ся в data
@@ -59,6 +64,20 @@ const authSlice = createSlice({
         state.data = action.payload;
       },
       [fethAuthMe.rejected]: (state) => {
+        state.status = "error";
+        state.data = null;
+      },
+
+
+      [fethRegister.pending]: (state) => {
+        state.status = "loading";
+        state.data = null;
+      },
+      [fethRegister.fulfilled]: (state, action) => {
+        state.status = "loaded";
+        state.data = action.payload;
+      },
+      [fethRegister.rejected]: (state) => {
         state.status = "error";
         state.data = null;
       },
