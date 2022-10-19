@@ -6,15 +6,16 @@ import SimpleMDE from "react-simplemde-editor"; //делаю редактор д
 import "easymde/dist/easymde.min.css";
 import styles from "./AddPost.module.scss";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { selectIsAuth } from "../../redux/slices/auth";
 import axios from "../../axios";
 
 export const AddPost = () => {
   const isAuth = useSelector(selectIsAuth);
-  const [value, setValue] = React.useState(""); //value-сох-ет то что я ввела в редакторе
-  const [isLoading, setLoading] = React.useState(false);//для сервака, false по умолчанию(неотправляется запрос)
+  const navigate = useNavigate();
+  const [isLoading, setLoading] = React.useState(false); //для сервака, false по умолчанию(неотправляется запрос)
   const [title, setTitle] = React.useState(""); //на title
+  const [text, setText] = React.useState(""); //text-сох-ет то что я ввела в редакторе
   const [tags, setTegs] = React.useState("");
   const inputFileRef = React.useRef(null); //для загрузки изображения
   const [imageUrl, setImageUrl] = React.useState("");
@@ -35,12 +36,33 @@ export const AddPost = () => {
     }
   };
 
-  const onClickRemoveImage = () => {};
+  const onClickRemoveImage = () => {
+    setImageUrl(""); //на удаление
+  };
 
   const onChange = React.useCallback((value) => {
     //будет получать value я его сохранять я делаю компилированный редактор
-    setValue(value);
+    setText(value);
   }, []);
+
+  const onSumbit = async () => {
+    try {
+      setLoading(true); //идёт загрузка отправляю на сервак
+      const fields = {
+        //объект с полями передавваемый на сервер
+        title,
+        imageUrl,
+        tags: tags.split(','),//превратила строчку в массив для отправки на бэк
+        text,
+      };
+      const { data } = await axios.post("posts", fields); //вытащить из запроса инфу
+      const _id = data._id;
+      navigate(`/posts/${_id}`); //на пост переход на id на саму статью если она создана
+    } catch (error) {
+      console.warn(error);
+      alert("Ошибка при создании статьи!");
+    }
+  };
 
   const options = React.useMemo(
     //получает настройки
@@ -117,12 +139,12 @@ export const AddPost = () => {
 
       <SimpleMDE
         className={styles.editor}
-        value={value}
+        value={text}
         onChange={onChange}
         options={options}
       />
       <div className={styles.buttons}>
-        <Button size="large" variant="contained">
+        <Button onClick={onSumbit} size="large" variant="contained">
           Опубликовать
         </Button>
         <a href="/">

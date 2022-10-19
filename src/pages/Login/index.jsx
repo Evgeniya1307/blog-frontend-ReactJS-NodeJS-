@@ -16,7 +16,6 @@ export const Login = () => {
   const {
     register, //вытаскиваю
     handleSubmit,
-    setError,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
@@ -28,16 +27,16 @@ export const Login = () => {
   });
 
   //соз-ла функцию выполняющая тогда когда хукform понял что валидация прошла корректно
-  const onSubmit = async(values) => {
-   const data= await dispatch(fethAuth(values)); //ожидает получить объект с email,password и его передаст на бэк
-   if (!data.payload) {
-    return  alert('Не удалось авторизоваться!')
-  };
+  const onSubmit = async (values) => {
+    const data = await dispatch(fethAuth(values)); //ожидает получить объект с email,password и его передаст на бэк
+    if (!data.payload) {
+      return alert("Не удалось авторизоваться!");
+    }
 
-  // при успешном входе сохраняю токен
-  if('token' in data.payload) {
-    window.localStorage.setItem('token', data.payload.token);
-   }; 
+    // при успешном входе сохраняю токен
+    if ("token" in data.payload) {
+      window.localStorage.setItem("token", data.payload.token);
+    }
   };
 
   if (isAuth) {
@@ -67,7 +66,13 @@ export const Login = () => {
           {...register("password", { required: "Укажите пароль" })}
           fullWidth
         />
-        <Button disabled={!isValid}  type="sumbit" size="large" variant="contained" fullWidth>
+        <Button
+          disabled={!isValid}
+          type="sumbit"
+          size="large"
+          variant="contained"
+          fullWidth
+        >
           Войти
         </Button>
       </form>

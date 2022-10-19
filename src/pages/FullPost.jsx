@@ -7,7 +7,7 @@ import { CommentsBlock } from "../components/CommentsBlock";
 import axios from "../axios";
 
 export const FullPost = () => {
-  const [data, setDate] = React.useState(); //хранится data
+  const [data, setData] = React.useState(); //хранится data
   const [isLoading, setIsLoading] = React.useState(true); //сейчас идёт загрузка
   //вытаскиваю id полученный
   const { id } = useParams();
@@ -17,7 +17,7 @@ export const FullPost = () => {
       .get(`/posts/${id}`) //при первом рендере делаю запрос
       .then((res) => {
         //выполнился когда запрос сох-ла результат в state
-        setDate(res.data);
+        setData(res.data);
         setIsLoading(false); //если запрос успешно
       })
       .catch((err) => {
@@ -43,8 +43,7 @@ export const FullPost = () => {
         viewsCount={data.viewsCount}
         commentsCount={3}
         tags={data.tags}
-        isFullPost
-      >
+        isFullPost>
         <p>{data.text}</p>
       </Post>
       <CommentsBlock
