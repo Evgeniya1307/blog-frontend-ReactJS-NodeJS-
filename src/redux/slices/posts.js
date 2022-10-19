@@ -16,6 +16,12 @@ return data;//что придёт от бэка возвращаю
 });
 
 
+//на удаление статьи
+
+export const fetchRemovePost = createAsyncThunk(
+  "posts/fetchRemovePost",
+  async (id) => axios.delete(`/posts/${id}`)
+);
 
 
 
@@ -68,6 +74,12 @@ extraReducers: {//описала состояние асинхронного э�
   state.tags.items=[];//сбрасываю статьи которые были изначально
   state.tags.status ='error';//
 },
+// Удаление статьи
+[fetchRemovePost.pending]: (state, action) => {
+  state.posts.items = state.posts.items.filter(
+    (obj) => obj._id !== action.meta.arg
+  );
+  }
 },
 });
 

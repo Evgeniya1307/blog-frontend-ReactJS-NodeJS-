@@ -42,9 +42,9 @@ export const Home = () => {
               <Post //если статьи нету то рендерю реальную статью
                 id={obj._id}
                 title={obj.title}
-                imageUrl={obj.imageUrl}
+                imageUrl={obj.imageUrl ? `http://localhost:4444${obj.imageUrl}` : ''}
                 user={obj.user}
-                createdAt={"obj.createdAt"}
+                createdAt={""}
                 viewsCount={"obj.viewsCount"}
                 commentsCount={3}
                 tags={obj.tags}
@@ -59,14 +59,14 @@ export const Home = () => {
             items={[
               {
                 user: {
-                  fullName: "Вася Пупкин",
+                  fullName: "Михаил Седун",
                   avatarUrl: "https://mui.com/static/images/avatar/1.jpg",
                 },
                 text: "Это тестовый комментарий",
               },
               {
                 user: {
-                  fullName: "Иван Иванов",
+                  fullName: "Павел Александров",
                   avatarUrl: "https://mui.com/static/images/avatar/2.jpg",
                 },
                 text: "When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top",
